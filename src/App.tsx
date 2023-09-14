@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
+
+const App: React.FC = () => {
+  const [product, setProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const apiUrl = "https://dummyjson.com/products/1";
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok)
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.json()
+      })
+      .then(data => setProduct(data))
+      .catch(error => console.error('Console Error fetching product data:', error))
+
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Project To Test</h1>
+      {product ? (
+        <div>
+          <p>{product?.brand}</p>
+          <p>{product?.category}</p>
+          <p>{product?.description}</p>
+        </div>
+      ) : "loading..."}
     </div>
   );
 }
