@@ -14,8 +14,12 @@ interface Product {
     images: string[];
 }
 
+function gitHubApi(path: string): string {
+    return `https://dummyjson.com${path}`
+}
+
 const worker = setupWorker(
-    rest.get<Product>("https://dummyjson.com/products/1", (req, res, ctx) => {
+    rest.get<Product>(gitHubApi("/products/1"), (req, res, ctx) => {
         return res(ctx.json({
             "id": 1,
             "title": "iPhone 9",
