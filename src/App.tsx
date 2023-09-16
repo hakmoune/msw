@@ -15,11 +15,13 @@ interface Product {
   images: string[];
 }
 
+
 const App: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    const apiUrl = "https://dummyjson.com/products/1";
+    const param = 1
+    const apiUrl = `https://dummyjson.com/products/${param}`;
 
     fetch(apiUrl)
       .then(response => {
@@ -34,12 +36,12 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>Project To Test</h1>
+      <h1>Product Details</h1>
       {product ? (
         <div>
-          <p>{product?.brand}</p>
-          <p>{product?.category}</p>
-          <p>{product?.description}</p>
+          <p>{product.brand}</p>
+          <p>{product.category}</p>
+          <p>{product.description}</p>
         </div>
       ) : "loading..."}
     </div>
