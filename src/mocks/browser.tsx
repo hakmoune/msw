@@ -3,4 +3,4 @@ import { handlers } from "./handlers"
 
 const worker = setupWorker(...handlers)
 
-worker.start()
+worker.start({ onUnhandledRequest: 'warn' })
